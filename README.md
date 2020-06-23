@@ -4,6 +4,9 @@
 
 ![icon-thalliumeli](https://user-images.githubusercontent.com/261457/85421172-1dc2dc00-b542-11ea-8c9e-277d92efa9f7.png | width=90)
 
+
+<img src="https://user-images.githubusercontent.com/261457/85421172-1dc2dc00-b542-11ea-8c9e-277d92efa9f7.png" width="90" />
+
 # Project Description
 
 ThalliumEli is the api microservice backend that processes requests that originate from PlatinumEnoch and pass through BariumNahum.
