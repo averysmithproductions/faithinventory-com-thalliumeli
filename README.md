@@ -14,7 +14,7 @@ This repo contains the code for the ThalliumEliLambda resource, which receives d
 
 To deploy this lambda code, follow these steps:
 
-1. Install the node modules. You'll only have to do this once.
+1. Within this directory, install the node modules. You'll only have to do this once.
 
 ```
 nvm use
