@@ -2,6 +2,10 @@
 
 [![faithinventory-com-thalliumeli badge](https://img.shields.io/badge/faithinventory.com-thalliumeli-%23b88e83?style=for-the-badge&logo=javascript)](https://faithinventory.com/)
 
+---
+ThalliumEli Icon here
+---
+
 # Project Description
 
 ThalliumEli is the api microservice backend that processes requests that originate from PlatinumEnoch and pass through BariumNahum.
@@ -21,7 +25,8 @@ npm install
 
 ## Deployment
 
-2. To deploy this lambda code, run the this command.
+2. To deploy this lambda code, run this command.
+
 `sh ./scripts/deploy.sh <environment> <awsProfile>`
 
 ## API Documentation
