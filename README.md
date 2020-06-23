@@ -10,18 +10,18 @@ The ThalliumEliStack is declared in the [faithinventory-com-infrastructure](http
 
 This repo contains the code for the ThalliumEliLambda resource, which receives direct requests from and then returns responses to ThalliumEliApi.
 
-## Deployment
+## Initialize Repo
 
-To deploy this lambda code, follow these steps:
-
-1. Within this directory, install the node modules. You'll only have to do this once.
+To initialize this repo, you'll have to install the node modules. Run the following command. You'll only have to do this step once.
 
 ```
 nvm use
 npm install
 ```
 
-2. Then run the this command.
+## Deployment
+
+2. To deploy this lambda code, run the this command.
 `sh ./scripts/deploy.sh <environment> <awsProfile>`
 
 ## API Documentation
