@@ -2,7 +2,7 @@
 
 [![faithinventory-com-thalliumeli badge](https://img.shields.io/badge/faithinventory.com-thalliumeli-%23b88e83?style=for-the-badge&logo=javascript)](https://faithinventory.com/)
 
-#Project Description
+# Project Description
 
 ThalliumEli is the api microservice backend that processes requests that originate from PlatinumEnoch and pass through BariumNahum.
 
@@ -51,7 +51,7 @@ This application has pre-selected Administrators, also referred to as Site Autho
 
 It's designed for a Site Author to be registered, selectively, by the AWS Administrator. In order for an author to receive a magic link request, The AWS Administrator must follow the below instructions, first.
 
-#### Update SES
+### Update SES
 
 1. Navigate to https://console.aws.amazon.com/ses/home?region=us-east-1#verified-senders-email:
 2. Click, 'Verify a New Email Address'
@@ -70,4 +70,4 @@ It's designed for a Site Author to be registered, selectively, by the AWS Admini
 | email | `<email>` |
 
 4. Click, 'Save'.
-5. Now, make a `GET` request to `<environment>.faithinventory.com/api/1/inventory/admin/magic-link`. The author should now receive a Magic Link that they can click to sign into the PlatinumEnoch author area at <environment>.faithinventory.com/author.
+5. Now, make a `GET` request to `<environment>.faithinventory.com/api/1/inventory/admin/magic-link`. The author should now receive a Magic Link that they can click to sign into the PlatinumEnoch author area at `<environment>.faithinventory.com/author`.
