@@ -16,7 +16,10 @@ To deploy this lambda code, follow these steps:
 
 1. Install the node modules. You'll only have to do this once.
 
-`npm install`
+```
+nvm use
+npm install
+```
 
 2. Then run the this command.
 `sh ./scripts/deploy.sh <environment> <awsProfile>`
