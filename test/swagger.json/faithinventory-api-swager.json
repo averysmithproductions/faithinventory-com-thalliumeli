@@ -1,0 +1,312 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "FaithInventory-API-Swagger",
+    "version": "v0.0.0"
+  },
+  "host": "dev.faithinventory.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/api/1/inventory",
+  "paths": {
+    "/items": {
+      "get": {
+        "summary": "GetItems",
+        "description": "",
+        "operationId": "0718becb-0241-481b-90d0-0dfcdaf73155",
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        },
+        "parameters": []
+      }
+    },
+    "/items/graphql": {
+      "get": {
+        "summary": "RequestGraphQL",
+        "description": "",
+        "operationId": "1e1e70d2-fc51-44e0-afd8-0b3d2627bbf3",
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        },
+        "parameters": []
+      }
+    },
+    "/admin/magic-link": {
+      "post": {
+        "summary": "SendMagicLInk",
+        "description": "",
+        "operationId": "7cc54f86-2c8d-4a1b-bd4a-0c6c40324e31",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "{\"email\":\"avery@averysmith.pro\",\"signInKey\":\"MbhL9M\"}"
+            },
+            "in": "body",
+            "name": "body"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/admin/hash": {
+      "get": {
+        "summary": "VerifyHash",
+        "description": "",
+        "operationId": "df656d51-28d9-43db-8fa3-7585ab7e1ffa",
+        "parameters": [
+          {
+            "type": "string",
+            "default": "MbhL9M",
+            "name": "submittedKey",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/admin/s3/urls": {
+      "get": {
+        "summary": "GetS3UploadUrl",
+        "description": "",
+        "operationId": "4de03d4f-77bb-45c9-9cdf-fa91af0b0d05",
+        "parameters": [
+          {
+            "type": "string",
+            "default": "1",
+            "name": "amount",
+            "required": false,
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/item": {
+      "post": {
+        "summary": "CreateItem",
+        "description": "",
+        "operationId": "a98094d9-95a4-41ae-bbda-0a2e60521cc1",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "{\"images\":[\"inventory/items/ebf116d7-f704-4baa-aaee-b459e9a63ecd.jpg\"],\"summary\":\"this is item number 6\",\"title\":\"Sixth Test\",\"categories\":[\"bar\"],\"price\":100,\"moreInfoUrl\":\"https://www.amazon.com/dp/B00FMUYU6I/?ref=idea_lv_dp_ov_d\"}"
+            },
+            "in": "body",
+            "name": "body"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/items/28a69c88-d33e-40dc-9eec-541488d895f9": {
+      "put": {
+        "summary": "UpdateItem",
+        "description": "",
+        "operationId": "c833df90-5f78-43d2-a921-27c30cb9f19a",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "{\"title\":\"Canister 2\"}"
+            },
+            "in": "body",
+            "name": "body"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      },
+      "delete": {
+        "summary": "DeleteItem",
+        "description": "",
+        "operationId": "f7ac35e3-ac60-47bd-80b0-ddf18e17de1f",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "{}"
+            },
+            "in": "body",
+            "name": "body"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/admin/s3/images": {
+      "delete": {
+        "summary": "DeleteImages",
+        "description": "",
+        "operationId": "e9d553f1-459c-4503-9669-8dc0bbd5b17a",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "eeed4dbd-df27-4600-a087-6a11a6d6488a,12a78289-8b8a-497d-8c56-a96b1d1b39d7",
+            "name": "ids",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "{}"
+            },
+            "in": "body",
+            "name": "body"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/admin/cloudfront-cache": {
+      "delete": {
+        "summary": "DeleteCloudFrontCache",
+        "description": "",
+        "operationId": "5cca3b63-2947-4d30-9b97-b10a59f0eaab",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "{}"
+            },
+            "in": "body",
+            "name": "body"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/": {
+      "put": {
+        "summary": "UploadImageToS3 (A Front-end Put Request to S3)",
+        "description": "",
+        "operationId": "8a8aa629-8683-4af8-b226-eb34bda332f2",
+        "consumes": [
+          "image/jpeg"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "ASIAZXJKA5JWF74INS6D",
+            "name": "AWSAccessKeyId",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "image/jpeg",
+            "name": "Content-Type",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "1592885533",
+            "name": "Expires",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "R+0krAS/09NNnRjxrlZtOAmhQYU=",
+            "name": "Signature",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "public-read",
+            "name": "x-amz-acl",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "IQoJb3JpZ2luX2VjEOT//////////wEaCXVzLWVhc3QtMSJIMEYCIQDUB+XTz/+7Hy8cWV2A0yOC/T4HPfHyza4c0NSvnBH8+wIhAPKOFz8uhPYra5NO0kMxu8iv4y78fqh9kLzP9S+KspuaKtQBCG0QABoMNjY4NDkyNDI1ODM2IgzOwaF4NcsHHg9MD/AqsQEeEccxbsZQzvdJfxbvpffLBXSeCGI2C09P43zyIddjFqiZc2sFsTG+BbaqdPJRcQPwylGqDK1M5JbgXFlVXVG5odF5ulJl0vKoseV3rX99uosTnWG9Hotxne6ksosq9pQgA0CXoY0nhBmLhHhawHIPRtJ+Lv5RqB8hP497jSEuJ0vQuCXRcvIihatdt53lfcaXdxfDGRukyQvvm3jHPjtaff6+9SBu01FFcxUgxTUt97Mwl/vF9wU63wETpo5ihnduGEM7fdn0ZDnwkBsFQmryMAhTHIfnFBujhYnh+hTc8uHMt2k0vElyed8iZvJYrBd1tjBQdDaqE+D/7p202RibtLt4DYxmrKHBqZUSJjBLEN2kVRJKZMXHo6jNJaDBbsYeZvHP0j3gq0OxjHbljnYH8RS7eIaMQF4KkJDEE7Z9BZ0xKQSvSM5DaYrQmWdYL3HlrhrD5WJY/nq0nLFA//CBqMNQRrlgesVtqwt1ZWoV0zWxve3kd/oIRtJ2uA1HtY/1kEOetbAr+IrZ7ekeOIB+ejoewoLygGhW",
+            "name": "x-amz-security-token",
+            "required": false,
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "in": "body",
+            "name": "body"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}

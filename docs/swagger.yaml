@@ -1,0 +1,410 @@
+---
+swagger: "2.0"
+info:
+  description: This is a simple API
+  version: 1.0.0
+  title: Simple Inventory API
+  contact:
+    email: avery@faithinventory.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: virtserver.swaggerhub.com
+basePath: /averysmith/ThalliumEliApi/1.0.0
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: users
+  description: Operations available to regular users
+schemes:
+- https
+paths:
+  /api/1/inventory/items:
+    get:
+      tags:
+      - users
+      summary: searches inventory items
+      description: |
+        Gets all inventory items in the system.
+      operationId: GetItems
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "200":
+          description: search results matching criteria
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/FetchedInventoryItem'
+  /api/1/inventory/items/graphql:
+    get:
+      tags:
+      - users
+      summary: searches inventory items
+      description: |
+        Gets all inventory items in the system.
+      operationId: RequestGraphQL
+      produces:
+      - application/json
+      parameters:
+      - name: proxy+
+        in: path
+        required: true
+        type: string
+      responses:
+        "200":
+          description: search results matching criteria
+  /api/1/inventory/admin/s3/urls:
+    get:
+      tags:
+      - admins
+      summary: searches inventory items
+      description: |
+        Gets presigned urls for images to be loaded into S3.
+      operationId: GetS3UploadUrl
+      produces:
+      - application/json
+      parameters:
+      - name: amount
+        in: query
+        description: The amount of pre-signed urls to return.
+        required: false
+        type: number
+      responses:
+        "200":
+          description: success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PresignedUrl'
+        "401":
+          description: success
+      security:
+      - AveryGoodAuthenticator: []
+  /api/1/inventory/admin/magic-link:
+    post:
+      tags:
+      - admins
+      summary: sends a magic link
+      description: sends a magic link to the submitted email so that an author can authenticate
+      operationId: SendAdminMagicLink
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: author
+        description: author to authenticate
+        required: false
+        schema:
+          $ref: '#/definitions/Author'
+      responses:
+        "200":
+          description: email sent, header Authorization cookie returned
+        "404":
+          description: resource not found
+  /api/1/inventory/admin/hash:
+    get:
+      tags:
+      - admins
+      summary: verify hash
+      description: confirms that submitted key matches sign in key
+      operationId: VerifyHash
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: verificationData
+        description: submitted key to be matched with sign in key that is retrieved from the Authorization Header
+        required: false
+        schema:
+          $ref: '#/definitions/VerificationData'
+      responses:
+        "200":
+          description: success
+        "400":
+          description: verification status is missing
+        "401":
+          description: unauthorized access
+        "404":
+          description: resource not found
+      security:
+      - AveryGoodAuthenticator: []
+  /api/1/inventory/item:
+    post:
+      tags:
+      - admins
+      summary: creates an inventory item
+      description: inserts an inventory item into DynamoDB
+      operationId: CreateItem
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: author
+        description: author to authenticate
+        required: false
+        schema:
+          $ref: '#/definitions/NewInventoryItem'
+      responses:
+        "200":
+          description: email sent, header Authorization cookie returned
+          schema:
+            $ref: '#/definitions/inline_response_200'
+        "400":
+          description: caught error
+        "401":
+          description: unauthorized access
+      security:
+      - AveryGoodAuthenticator: []
+  /api/1/inventory/items/{id}:
+    put:
+      tags:
+      - admins
+      summary: creates an inventory item
+      description: updates an inventory item in DynamoDB
+      operationId: UpdateItem
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      - in: body
+        name: author
+        description: author to authenticate
+        required: false
+        schema:
+          $ref: '#/definitions/UpdatedInventoryItem'
+      responses:
+        "200":
+          description: success
+        "400":
+          description: caught error
+        "401":
+          description: unauthorized access
+        "404":
+          description: resource not found
+      security:
+      - AveryGoodAuthenticator: []
+    delete:
+      tags:
+      - admins
+      summary: deletes an inventory item
+      description: deletes an inventory item from DynamoDB
+      operationId: DeleteItem
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+      responses:
+        "200":
+          description: success but could potentially throw DynamoDB error
+        "204":
+          description: success
+        "404":
+          description: resource not found
+      security:
+      - AveryGoodAuthenticator: []
+  /api/1/inventory/admin/s3/images:
+    delete:
+      tags:
+      - admins
+      summary: deletes an inventory item
+      description: deletes images from S3
+      operationId: DeleteImages
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: ids
+        in: query
+        description: A comma delimited string of image ids to be deleted.
+        required: false
+        type: string
+      responses:
+        "200":
+          description: success but could potentially throw DynamoDB error
+        "204":
+          description: success
+        "400":
+          description: \'ids\' parameter is required.
+        "401":
+          description: unauthorized access
+      security:
+      - AveryGoodAuthenticator: []
+  /api/1/inventory/admin/cloudfront-cache:
+    delete:
+      tags:
+      - admins
+      summary: deletes cloudfront site cache
+      description: deletes cloudfront cache so that the site pages can be refreshed. Mostly used to give Gatsby Cloud and Site Authors the ability to clear cache on command.
+      operationId: DeleteCloudFrontCache
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        "204":
+          description: success
+        "401":
+          description: unauthorized access
+      security:
+      - AveryGoodAuthenticator: []
+securityDefinitions:
+  AveryGoodAuthenticator:
+    type: apiKey
+    name: Authorization
+    in: header
+    x-amazon-apigateway-authtype: custom
+definitions:
+  Author:
+    properties:
+      email:
+        type: string
+        description: email address
+      signInKey:
+        type: string
+        description: sign in key authentication
+    description: author object
+  NewInventoryItem:
+    type: object
+    required:
+    - categories
+    - images
+    - moreInfoUrl
+    - price
+    - summary
+    - title
+    properties:
+      title:
+        type: string
+        description: name of the item
+      summary:
+        type: string
+        example: summary of the item
+      images:
+        type: array
+        items:
+          type: string
+          description: photo file path in S3
+      categories:
+        type: array
+        items:
+          type: string
+          description: categories of the item
+      price:
+        type: number
+        description: price of the item
+      moreInfoUrl:
+        type: number
+        description: external url to learn more about the item
+  FetchedInventoryItem:
+    type: object
+    required:
+    - categories
+    - createdAt
+    - id
+    - images
+    - moreInfoUrl
+    - price
+    - slugId
+    - summary
+    - title
+    properties:
+      id:
+        type: string
+        format: uuid
+        example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        description: ID of the item
+      createdAt:
+        type: string
+        description: when this item was created
+      slugId:
+        type: string
+        description: url-safe slug id of item
+      title:
+        type: string
+        description: name of the item
+      summary:
+        type: string
+        example: summary of the item
+      images:
+        type: array
+        items:
+          type: string
+          description: photo file path in S3
+      categories:
+        type: array
+        items:
+          type: string
+          description: categories of the item
+      price:
+        type: number
+        description: price of the item
+      moreInfoUrl:
+        type: number
+        description: external url to learn more about the item
+  PresignedUrl:
+    properties:
+      uploadURL:
+        type: string
+        description: the s3 url to upload to
+      photoFilename:
+        type: string
+        description: the normalized filename that connects S3 to DynamoDB
+    description: pre-signed url object
+  UpdatedInventoryItem:
+    type: object
+    properties:
+      title:
+        type: string
+        description: name of the item
+      summary:
+        type: string
+        example: summary of the item
+      images:
+        type: array
+        items:
+          type: string
+          description: photo file path in S3
+      categories:
+        type: array
+        items:
+          type: string
+          description: categories of the item
+      price:
+        type: number
+        description: price of the item
+      moreInfoUrl:
+        type: number
+        description: external url to learn more about the item
+  VerificationData:
+    properties:
+      submittedKey:
+        type: string
+        description: submitted key for verification
+    description: author object
+  inline_response_200:
+    type: object
+    properties:
+      id:
+        type: string
+      createdAt:
+        type: string
+      slugId:
+        type: string
