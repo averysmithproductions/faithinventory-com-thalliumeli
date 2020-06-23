@@ -12,10 +12,18 @@ This repo contains the code for the ThalliumEliLambda resource, which receives d
 
 ## Deployment
 
-To deploy this lambda code, run the following command:
+To deploy this lambda code, follow these steps:
+
+1. Install the node modules. You'll only have to do this once.
+
+`npm install`
+
+2. Then run the this command.
 `sh ./scripts/deploy.sh <environment> <awsProfile>`
 
-## Documentation
+## API Documentation
+
+TO DO...
 
 ## Testing
 
