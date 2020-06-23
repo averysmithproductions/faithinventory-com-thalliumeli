@@ -2,9 +2,7 @@
 
 [![faithinventory-com-thalliumeli badge](https://img.shields.io/badge/faithinventory.com-thalliumeli-%23b88e83?style=for-the-badge&logo=javascript)](https://faithinventory.com/)
 
----
-ThalliumEli Icon here
----
+# ThalliumEli Icon here
 
 # Project Description
 
