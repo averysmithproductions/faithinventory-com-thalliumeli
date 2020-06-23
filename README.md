@@ -2,16 +2,13 @@
 
 [![faithinventory-com-thalliumeli badge](https://img.shields.io/badge/faithinventory.com-thalliumeli-%23b88e83?style=for-the-badge&logo=javascript)](https://faithinventory.com/)
 
-![icon-thalliumeli](https://user-images.githubusercontent.com/261457/85421172-1dc2dc00-b542-11ea-8c9e-277d92efa9f7.png | width=90)
-
-
 <img title="ThalliumEli icon" src="https://user-images.githubusercontent.com/261457/85421172-1dc2dc00-b542-11ea-8c9e-277d92efa9f7.png" width="90" />
 
 # Project Description
 
 ThalliumEli is the API Microservice backend, which receives requests from, processes and then returns responses to BariumNahum.
 
-ThalliumEliStack is declared in the [faithinventory-com-infrastructure](https://github.com/averysmithproductions/faithinventory-com-infrastructure) repo. 
+ThalliumEliStack is declared in the [faithinventory-com-infrastructure](https://github.com/averysmithproductions/faithinventory-com-infrastructure) repo.
 
 This repo contains the code for the ThalliumEliLambda resource, which contains the business logic that touches other ThalliumEliStack resourcs such as ThalliumEliInventoryItemsTable, ThalliumEliInventoryAdminsTable and ThalliumEliSESCWEventDestination.
 
