@@ -55,9 +55,16 @@ cd ../
 
 To invoke the integration tests, run the following command:
 
-`npm run test:integrations -- [--environment=<environment> --email=<email>]`
+`npm run test:integrations -- [--environment=<environment>] --email=<email> --apiKey=<apiKey>`
 
 The `<environment>` argument defaults to `dev`.
+The api key restricts requests to all `/api/1/admin/` routes to be performed by clients of whom are supplied an api key.
+
+The Api Key value can be found at:
+
+https://console.aws.amazon.com/apigateway/home?region=us-east-1#/api-keys/
+
+Under `<environment>-ThalliumEliApiKey`
 
 > Please note, if the app doesn't have any inventory items, then the specific test:
 >

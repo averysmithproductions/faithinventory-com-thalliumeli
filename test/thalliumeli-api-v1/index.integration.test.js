@@ -15,7 +15,7 @@ describe('ThalliumEliApi', () => {
 	})
 	describe('When a user visits the homepage', () => {
 		it('should get all inventory items', async () => {
-			const { environmentUrl } = config
+			const { apiKey, environmentUrl } = config
 			const headers = {
 				headers: {
 					'Content-Type': 'application/json'
@@ -72,11 +72,12 @@ describe('ThalliumEliApi', () => {
 			authorizationHash = result.headers['x-amzn-remapped-authorization']
 		})
 		it('should post an inventory item', async done => {
-			const { environmentUrl } = config
+			const { apiKey, environmentUrl } = config
 			const headers = {
 				headers: {
 					'Content-Type': 'application/json',
-					'Authorization': authorizationHash
+					'Authorization': authorizationHash,
+					'x-api-key': apiKey
 				}
 			}
     		const photosToBeUploaded = [ '71smHIiMLUL._SL1500_.jpg', '81g3QsCa2aL._SL1500_.jpg' ]
@@ -87,9 +88,9 @@ describe('ThalliumEliApi', () => {
 				'price': 45.00,
 				'moreInfoUrl': 'https://www.wildplanetfoods.com/product/wild-sockeye-salmon/'
 			}
-			let result = await axios.get(`${environmentUrl}/api/1/inventory/admin/s3/urls?amount=${photosToBeUploaded.length}`, headers)
+			let result = await axios.get(`${environmentUrl}/api/1/admin/inventory/s3/urls?amount=${photosToBeUploaded.length}`, headers)
 			if (shouldLogResponse) {
-				console.log(`GET /api/1/inventory/admin/s3/urls?amount=2`, result.data)
+				console.log(`GET /api/1/admin/inventory/s3/urls?amount=2`, result.data)
 			}
 			expect(result.status).toEqual(200)
 			expect(Array.isArray(result.data)).toBe(true)
@@ -117,9 +118,9 @@ describe('ThalliumEliApi', () => {
 					})
 				}
 				// post inventory item with s3 photo refrences
-				result = await axios.post(`${environmentUrl}/api/1/inventory/item`, params, headers)
+				result = await axios.post(`${environmentUrl}/api/1/admin/inventory/item`, params, headers)
 				if (shouldLogResponse) {
-					console.log(`POST /api/1/inventory/item`, result.status)
+					console.log(`POST /api/1/admin/inventory/item`, result.status)
 				}
 				expect(result.status).toEqual(200)
 				console.log(authorizationHash)
@@ -136,28 +137,30 @@ describe('ThalliumEliApi', () => {
 			})
 		})
 		it('should update an inventory item', async () => {
-			const { environmentUrl } = config
+			const { apiKey, environmentUrl } = config
 			const headers = {
 				headers: {
 					'Content-Type': 'application/json',
-					'Authorization': authorizationHash
+					'Authorization': authorizationHash,
+					'x-api-key': apiKey
 				}
 			}
 			const params = {
 				'summary': "It's so good. With it being extremely healthy, relatively inexpensive and easily accessible, canned salmon is the best deal in town.",
 			}
-			let result = await axios.put(`${environmentUrl}/api/1/inventory/items/${inventoryItem.id}`, params, headers)
+			let result = await axios.put(`${environmentUrl}/api/1/admin/inventory/items/${inventoryItem.id}`, params, headers)
 			if (shouldLogResponse) {
-				console.log(`PUT /api/1/inventory/items/${inventoryItem.id}`, result.data)
+				console.log(`PUT /api/1/admin/inventory/items/${inventoryItem.id}`, result.data)
 			}
 			expect(result.status).toEqual(200)
 		})
 		it('should delete an inventory item', async () => {
-			const { environmentUrl } = config
+			const { apiKey, environmentUrl } = config
 			const headers = {
 				headers: {
 					'Content-Type': 'application/json',
-					'Authorization': authorizationHash
+					'Authorization': authorizationHash,
+					'x-api-key': apiKey
 				}
 			}
 			// delete inventory item images off of S3
@@ -170,24 +173,25 @@ describe('ThalliumEliApi', () => {
 				return ids
 			}
 			const ids = getDelimitedStringOfIds(inventoryItem.images, ',')
-			let result = await axios.delete(`${environmentUrl}/api/1/inventory/admin/s3/images?ids=${ids}`, headers)
+			let result = await axios.delete(`${environmentUrl}/api/1/admin/inventory/s3/images?ids=${ids}`, headers)
 			if (shouldLogResponse) {
-				console.log(`DELETE /api/1/inventory/admin/s3/images?ids=${ids}`, result.data)
+				console.log(`DELETE /api/1/admin/inventory/s3/images?ids=${ids}`, result.data)
 			}
 			expect(result.status).toEqual(204)
 			// delete inventory items
-			result = await axios.delete(`${environmentUrl}/api/1/inventory/items/${inventoryItem.id}`, headers)
+			result = await axios.delete(`${environmentUrl}/api/1/admin/inventory/items/${inventoryItem.id}`, headers)
 			if (shouldLogResponse) {
-				console.log(`DELETE /api/1/inventory/items/${inventoryItem.id}`, result.data)
+				console.log(`DELETE /api/1/admin/inventory/items/${inventoryItem.id}`, result.data)
 			}
 			expect(result.status).toEqual(204)
 		})
 		it('should post the inventory item again, since the author really wants it up', async done => {
-			const { environmentUrl } = config
+			const { apiKey, environmentUrl } = config
 			const headers = {
 				headers: {
 					'Content-Type': 'application/json',
-					'Authorization': authorizationHash
+					'Authorization': authorizationHash,
+					'x-api-key': apiKey
 				}
 			}
     		const photosToBeUploaded = [ '71smHIiMLUL._SL1500_.jpg', '81g3QsCa2aL._SL1500_.jpg' ]
@@ -198,9 +202,9 @@ describe('ThalliumEliApi', () => {
 				'price': 45.00,
 				'moreInfoUrl': 'https://www.wildplanetfoods.com/product/wild-sockeye-salmon/'
 			}
-			let result = await axios.get(`${environmentUrl}/api/1/inventory/admin/s3/urls?amount=${photosToBeUploaded.length}`, headers)
+			let result = await axios.get(`${environmentUrl}/api/1/admin/inventory/s3/urls?amount=${photosToBeUploaded.length}`, headers)
 			if (shouldLogResponse) {
-				console.log(`GET /api/1/inventory/admin/s3/urls?amount=2`, result.data)
+				console.log(`GET /api/1/admin/inventory/s3/urls?amount=${photosToBeUploaded.length}`, result.data)
 			}
 			expect(result.status).toEqual(200)
 			expect(Array.isArray(result.data)).toBe(true)
@@ -228,9 +232,9 @@ describe('ThalliumEliApi', () => {
 					})
 				}
 				// post inventory item with s3 photo refrences
-				result = await axios.post(`${environmentUrl}/api/1/inventory/item`, params, headers)
+				result = await axios.post(`${environmentUrl}/api/1/admin/inventory/item`, params, headers)
 				if (shouldLogResponse) {
-					console.log(`POST /api/1/inventory/item`, result.status)
+					console.log(`POST /api/1/admin/inventory/item`, result.status)
 				}
 				expect(result.status).toEqual(200)
 				console.log(authorizationHash)
@@ -247,17 +251,18 @@ describe('ThalliumEliApi', () => {
 			})
 		})
 		it('should invalidate the cloudfront cache', async () => {
-			const { environmentUrl } = config
+			const { apiKey, environmentUrl } = config
 			const headers = {
 				headers: {
 					'Content-Type': 'application/json',
-					'Authorization': authorizationHash
+					'Authorization': authorizationHash,
+					'x-api-key': apiKey
 				}
 			}
 			// delete cloudfront cache
-			result = await axios.delete(`${environmentUrl}/api/1/inventory/admin/cloudfront-cache`, headers)
+			result = await axios.delete(`${environmentUrl}/api/1/admin/cloudfront-cache`, headers)
 			if (shouldLogResponse) {
-				console.log(`DELETE /api/1/inventory/admin/cloudfront-cache`, result.data)
+				console.log(`DELETE /api/1/admin/cloudfront-cache`, result.data)
 			}
 			expect(result.status).toEqual(204)
 		})

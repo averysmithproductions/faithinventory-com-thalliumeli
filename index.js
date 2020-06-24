@@ -23,44 +23,6 @@ exports.handler = function(event, context, callback) {
                 break
         }
         
-    } else if (resource === '/api/1/inventory/item') {
-
-        switch (httpMethod) {
-
-            case 'OPTIONS':
-
-                ThalliumEliApi.GetFlightPermit(callback)
-
-                break
-
-            case 'POST':
-
-                ThalliumEliApi.CreateItem(event, callback)
-
-                break
-        }
-    } else if (resource === '/api/1/inventory/items/{id}') {
-
-        switch (httpMethod) {
-
-            case 'OPTIONS':
-
-                ThalliumEliApi.GetFlightPermit(callback)
-
-                break
-
-            case 'PUT':
-
-                ThalliumEliApi.UpdateItem(event, callback)
-
-                break
-
-            case 'DELETE':
-
-                ThalliumEliApi.DeleteItem(event, callback)
-
-                break
-        }
     } else if (resource === '/{proxy+}') {
 
         switch (httpMethod) {
@@ -112,7 +74,47 @@ exports.handler = function(event, context, callback) {
                 break
         }
 
-    } else if (resource === '/api/1/inventory/admin/s3/urls') {
+    } else if (resource === '/api/1/admin/inventory/item') {
+
+        switch (httpMethod) {
+
+            case 'OPTIONS':
+
+                ThalliumEliApi.GetFlightPermit(callback)
+
+                break
+
+            case 'POST':
+
+                ThalliumEliApi.CreateItem(event, callback)
+
+                break
+        }
+
+    } else if (resource === '/api/1/admin/inventory/items/{id}') {
+
+        switch (httpMethod) {
+
+            case 'OPTIONS':
+
+                ThalliumEliApi.GetFlightPermit(callback)
+
+                break
+
+            case 'PUT':
+
+                ThalliumEliApi.UpdateItem(event, callback)
+
+                break
+
+            case 'DELETE':
+
+                ThalliumEliApi.DeleteItem(event, callback)
+
+                break
+        }
+        
+    } else if (resource === '/api/1/admin/inventory/s3/urls') {
 
         switch (httpMethod) {
 
@@ -129,7 +131,7 @@ exports.handler = function(event, context, callback) {
                 break
         }
 
-    } else if (resource === '/api/1/inventory/admin/s3/images') {
+    } else if (resource === '/api/1/admin/inventory/s3/images') {
 
         switch (httpMethod) {
 
@@ -146,7 +148,7 @@ exports.handler = function(event, context, callback) {
                 break
         }
 
-    } else if (resource === '/api/1/inventory/admin/cloudfront-cache') {
+    } else if (resource === '/api/1/admin/cloudfront-cache') {
 
         switch (httpMethod) {
 
