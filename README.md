@@ -59,7 +59,11 @@ To invoke the integration tests, run the following command:
 
 The `<environment>` argument defaults to `dev`.
 
-> Please note, if the app doesn't have any inventory items, then the specific test, "When a user visits the homepage" > "should get all inventory items" will always fail because it is looking for items to return.
+> Please note, if the app doesn't have any inventory items, then the specific test:
+>
+> "When a user visits the homepage" > "should get all inventory items"
+>
+> will always fail because it is looking for items to return.
 >
 > The issue will resolve itself on all subsequent runs of this test.
 
