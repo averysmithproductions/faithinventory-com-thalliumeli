@@ -55,7 +55,7 @@ cd ../
 
 To invoke the integration tests, run the following command:
 
-`npm run test:integrations -- [--environment=<environment>] --email=<email> --apiKey=<apiKey>`
+`npm run test:integrations -- --apiKey=<apiKey> --email=<email> [--environment=<environment>]`
 
 The `<environment>` argument defaults to `dev`.
 The api key restricts requests to all `/api/1/admin/` routes to be performed by clients of whom are supplied an api key.
