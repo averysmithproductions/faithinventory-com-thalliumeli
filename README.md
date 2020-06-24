@@ -53,7 +53,17 @@ cd ../
 
 ### Integration Tests
 
-Integration Tests can be performed using an API Tool like Paw or Postman.
+To invoke the integration tests, run the following command:
+
+`npm run test:integrations -- [--environment=<environment> --email=<email>]`
+
+The `<environment>` argument defaults to `dev`.
+
+> Please note, if the app doesn't have any inventory items, then the specific test, "When a user visits the homepage" > "should get all inventory items" will always fail because it is looking for items to return.
+>
+> The issue will resolve itself on all subsequent runs of this test.
+
+In addition, integration tests can be performed using an API Tool like Paw or Postman.
 
 Just import the stubbed out Paw Swagger file [located in the test folder](test/paw/faithinventory-api-swagger.json) into your tool of choice.
 

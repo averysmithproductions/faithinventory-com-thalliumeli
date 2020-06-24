@@ -1,84 +1,86 @@
----
-swagger: "2.0"
+swagger: '2.0'
 info:
   description: This is a simple API
   version: 1.0.0
   title: Simple Inventory API
+  # put the contact info for your development or API team
   contact:
-    email: avery@faithinventory.com
+    email: you@your-company.com
+
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-host: virtserver.swaggerhub.com
-basePath: /averysmith/ThalliumEliApi/1.0.0
+
+# tags are used for organizing operations
 tags:
 - name: admins
   description: Secured Admin-only calls
 - name: users
   description: Operations available to regular users
-schemes:
-- https
+  
 paths:
   /api/1/inventory/items:
     get:
       tags:
       - users
       summary: searches inventory items
+      operationId: GetItems
       description: |
         Gets all inventory items in the system.
-      operationId: GetItems
       produces:
       - application/json
-      parameters: []
       responses:
-        "200":
+        200:
           description: search results matching criteria
           schema:
             type: array
             items:
               $ref: '#/definitions/FetchedInventoryItem'
-  /api/1/inventory/items/graphql:
+  # this route should actually be
+  #{proxy+}:
+  # x-amazon-apigateway-any-method:
+  #  but AWS Custom ANY verb but that causes a swagger error, so store the get verb instead. So put the direct route and the basic get verb to remove swagger error.
+  /api/1/inventory/items/graphql: 
     get:
       tags:
       - users
       summary: searches inventory items
+      operationId: RequestGraphQL
       description: |
         Gets all inventory items in the system.
-      operationId: RequestGraphQL
       produces:
       - application/json
       parameters:
-      - name: proxy+
-        in: path
+      - in: path
+        name: proxy+
         required: true
         type: string
       responses:
-        "200":
+        200:
           description: search results matching criteria
   /api/1/inventory/admin/s3/urls:
     get:
       tags:
       - admins
       summary: searches inventory items
+      operationId: GetS3UploadUrl
       description: |
         Gets presigned urls for images to be loaded into S3.
-      operationId: GetS3UploadUrl
       produces:
       - application/json
       parameters:
-      - name: amount
-        in: query
-        description: The amount of pre-signed urls to return.
-        required: false
+      - in: query
+        name: amount
         type: number
+        description: The amount of pre-signed urls to return.
       responses:
-        "200":
+        200:
           description: success
           schema:
             type: array
             items:
               $ref: '#/definitions/PresignedUrl'
-        "401":
+        401:
           description: success
       security:
       - AveryGoodAuthenticator: []
@@ -87,8 +89,8 @@ paths:
       tags:
       - admins
       summary: sends a magic link
-      description: sends a magic link to the submitted email so that an author can authenticate
       operationId: SendAdminMagicLink
+      description: sends a magic link to the submitted email so that an author can authenticate
       consumes:
       - application/json
       produces:
@@ -97,38 +99,46 @@ paths:
       - in: body
         name: author
         description: author to authenticate
-        required: false
         schema:
           $ref: '#/definitions/Author'
       responses:
-        "200":
+        200:
           description: email sent, header Authorization cookie returned
-        "404":
+          # the below object causes a swagger error so comment it out for now
+          #   'x-amzn-Remapped-Authorization':
+          #     schema:
+          #       type: string
+          #     description: custom authorization string that initially expires in 24 hours
+        404:
           description: resource not found
   /api/1/inventory/admin/hash:
     get:
       tags:
-      - admins
+        - admins
       summary: verify hash
-      description: confirms that submitted key matches sign in key
       operationId: VerifyHash
+      description: confirms that submitted key matches sign in key
       consumes:
       - application/json
       parameters:
-      - in: body
-        name: verificationData
+      - in: query
+        name: submittedKey
+        type: string
         description: submitted key to be matched with sign in key that is retrieved from the Authorization Header
-        required: false
-        schema:
-          $ref: '#/definitions/VerificationData'
       responses:
-        "200":
+        200:
           description: success
-        "400":
+          # the below object causes a swagger error so comment it out for now
+          # headers:
+          #   'x-amzn-Remapped-Authorization':
+          #     schema:
+          #       type: string
+          #     description: modified custom authorization string to expire in 7 days
+        400:
           description: verification status is missing
-        "401":
+        401:
           description: unauthorized access
-        "404":
+        404:
           description: resource not found
       security:
       - AveryGoodAuthenticator: []
@@ -137,8 +147,8 @@ paths:
       tags:
       - admins
       summary: creates an inventory item
-      description: inserts an inventory item into DynamoDB
       operationId: CreateItem
+      description: inserts an inventory item into DynamoDB
       consumes:
       - application/json
       produces:
@@ -147,17 +157,29 @@ paths:
       - in: body
         name: author
         description: author to authenticate
-        required: false
         schema:
           $ref: '#/definitions/NewInventoryItem'
       responses:
-        "200":
+        200:
           description: email sent, header Authorization cookie returned
           schema:
-            $ref: '#/definitions/inline_response_200'
-        "400":
+            type: object
+            properties:
+              id:
+                type: string
+              createdAt:
+                type: string
+              slugId:
+                type: string
+          # the below object causes a swagger error so comment it out for now
+          # headers:
+          #   'x-amzn-Remapped-Authorization':
+          #     schema:
+          #       type: string
+          #     description: custom authorization string that initially expires in 24 hours
+        400:
           description: caught error
-        "401":
+        401:
           description: unauthorized access
       security:
       - AveryGoodAuthenticator: []
@@ -166,31 +188,36 @@ paths:
       tags:
       - admins
       summary: creates an inventory item
-      description: updates an inventory item in DynamoDB
       operationId: UpdateItem
+      description: updates an inventory item in DynamoDB
       consumes:
       - application/json
       produces:
       - application/json
       parameters:
-      - name: id
-        in: path
+      - in: path
+        name: id
         required: true
         type: string
       - in: body
         name: author
         description: author to authenticate
-        required: false
         schema:
           $ref: '#/definitions/UpdatedInventoryItem'
       responses:
-        "200":
+        200:
           description: success
-        "400":
+          # the below object causes a swagger error so comment it out for now
+          # headers:
+          #   'x-amzn-Remapped-Authorization':
+          #     schema:
+          #       type: string
+          #     description: custom authorization string that initially expires in 24 hours
+        400:
           description: caught error
-        "401":
+        401:
           description: unauthorized access
-        "404":
+        404:
           description: resource not found
       security:
       - AveryGoodAuthenticator: []
@@ -198,23 +225,29 @@ paths:
       tags:
       - admins
       summary: deletes an inventory item
-      description: deletes an inventory item from DynamoDB
       operationId: DeleteItem
+      description: deletes an inventory item from DynamoDB
       consumes:
       - application/json
       produces:
       - application/json
       parameters:
-      - name: id
-        in: path
+      - in: path
+        name: id
         required: true
         type: string
       responses:
-        "200":
+        200:
           description: success but could potentially throw DynamoDB error
-        "204":
+          # the below object causes a swagger error so comment it out for now
+          # headers:
+          #   'x-amzn-Remapped-Authorization':
+          #     schema:
+          #       type: string
+          #     description: custom authorization string that initially expires in 24 hours
+        204:
           description: success
-        "404":
+        404:
           description: resource not found
       security:
       - AveryGoodAuthenticator: []
@@ -223,26 +256,31 @@ paths:
       tags:
       - admins
       summary: deletes an inventory item
-      description: deletes images from S3
       operationId: DeleteImages
+      description: deletes images from S3
       consumes:
       - application/json
       produces:
       - application/json
       parameters:
-      - name: ids
-        in: query
-        description: A comma delimited string of image ids to be deleted.
-        required: false
+      - in: query
+        name: ids
         type: string
+        description: A comma delimited string of image ids to be deleted.
       responses:
-        "200":
+        200:
           description: success but could potentially throw DynamoDB error
-        "204":
+        204:
           description: success
-        "400":
+          # the below object causes a swagger error so comment it out for now
+          # headers:
+          #   'x-amzn-Remapped-Authorization':
+          #     schema:
+          #       type: string
+          #     description: custom authorization string that initially expires in 24 hours
+        400:
           description: \'ids\' parameter is required.
-        "401":
+        401:
           description: unauthorized access
       security:
       - AveryGoodAuthenticator: []
@@ -251,28 +289,28 @@ paths:
       tags:
       - admins
       summary: deletes cloudfront site cache
-      description: deletes cloudfront cache so that the site pages can be refreshed. Mostly used to give Gatsby Cloud and Site Authors the ability to clear cache on command.
       operationId: DeleteCloudFrontCache
+      description: deletes cloudfront cache so that the site pages can be refreshed. Mostly used to give Gatsby Cloud and Site Authors the ability to clear cache on command.
       consumes:
       - application/json
       produces:
       - application/json
-      parameters: []
       responses:
-        "204":
+        204:
           description: success
-        "401":
+          # the below object causes a swagger error so comment it out for now
+          # headers:
+          #   'x-amzn-Remapped-Authorization':
+          #     schema:
+          #       type: string
+          #     description: custom authorization string that initially expires in 24 hours
+        401:
           description: unauthorized access
       security:
       - AveryGoodAuthenticator: []
-securityDefinitions:
-  AveryGoodAuthenticator:
-    type: apiKey
-    name: Authorization
-    in: header
-    x-amazon-apigateway-authtype: custom
 definitions:
   Author:
+    description: author object
     properties:
       email:
         type: string
@@ -280,16 +318,15 @@ definitions:
       signInKey:
         type: string
         description: sign in key authentication
-    description: author object
   NewInventoryItem:
     type: object
     required:
-    - categories
-    - images
-    - moreInfoUrl
-    - price
-    - summary
     - title
+    - summary
+    - images
+    - categories
+    - price
+    - moreInfoUrl
     properties:
       title:
         type: string
@@ -316,15 +353,15 @@ definitions:
   FetchedInventoryItem:
     type: object
     required:
-    - categories
-    - createdAt
     - id
-    - images
-    - moreInfoUrl
-    - price
+    - createdAt
     - slugId
-    - summary
     - title
+    - summary
+    - images
+    - categories
+    - price
+    - moreInfoUrl
     properties:
       id:
         type: string
@@ -360,6 +397,7 @@ definitions:
         type: number
         description: external url to learn more about the item
   PresignedUrl:
+    description: pre-signed url object
     properties:
       uploadURL:
         type: string
@@ -367,7 +405,6 @@ definitions:
       photoFilename:
         type: string
         description: the normalized filename that connects S3 to DynamoDB
-    description: pre-signed url object
   UpdatedInventoryItem:
     type: object
     properties:
@@ -393,18 +430,18 @@ definitions:
       moreInfoUrl:
         type: number
         description: external url to learn more about the item
-  VerificationData:
-    properties:
-      submittedKey:
-        type: string
-        description: submitted key for verification
-    description: author object
-  inline_response_200:
-    type: object
-    properties:
-      id:
-        type: string
-      createdAt:
-        type: string
-      slugId:
-        type: string
+securityDefinitions:
+  AveryGoodAuthenticator:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+    x-amazon-apigateway-authtype: "custom"
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /averysmith/ThalliumEliApi/1.0.0
+schemes:
+ - https
+# Added by API Auto Mocking Plugin
+# basePath: /averysmith/ThalliumEliApi/1.0.0
+# Added by API Auto Mocking Plugin
+basePath: /averysmith/ThalliumEliApi/1.0.0
