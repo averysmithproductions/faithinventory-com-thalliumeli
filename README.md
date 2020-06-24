@@ -1,5 +1,9 @@
 # faithinventory-thalliumeli
 
+Prerequisites
+- [An AWS Account with programmatic permission](https://aws.amazon.com/)
+- [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
+
 [![faithinventory-com-thalliumeli badge](https://img.shields.io/badge/faithinventory.com-thalliumeli-%23b88e83?style=for-the-badge&logo=javascript)](https://faithinventory.com/)
 
 [<img title="ThalliumEli icon" src="https://user-images.githubusercontent.com/261457/85421172-1dc2dc00-b542-11ea-8c9e-277d92efa9f7.png" width="90" />](https://github.com/averysmithproductions/faithinventory-com-infrastructure#diagram)
