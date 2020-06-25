@@ -33,7 +33,11 @@ npm install
 
 ## API Documentation
 
-TO DO...
+API Documentation is provided via a Swagger Schema here:
+
+https://faithinventory.com/api/1/docs/
+
+This document can be updated by editing the corresponding Swagger Source file in the [docs](docs/) folder. Please check out it's [README](docs/README.md) for further instructions.
 
 ## Testing
 
@@ -62,6 +66,7 @@ To invoke the integration tests, run the following command:
 `npm run test:integrations -- --apiKey=<apiKey> --email=<email> [--environment=<environment>]`
 
 The `<environment>` argument defaults to `dev`.
+
 The api key restricts requests to all `/api/1/admin/` routes to be performed by clients of whom are supplied an api key.
 
 The Api Key value can be found at:
@@ -79,8 +84,6 @@ Under `<environment>-ThalliumEliApiKey`
 > The issue will resolve itself on all subsequent runs of this test.
 
 In addition, integration tests can be performed using an API Tool like Paw or Postman.
-
-Just import the stubbed out Paw Swagger file [located in the test folder](test/paw/faithinventory-api-swagger.json) into your tool of choice.
 
 ## Authentication
 
