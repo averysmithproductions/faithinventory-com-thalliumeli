@@ -37,7 +37,7 @@ API Documentation is provided via a Swagger Schema here:
 
 https://faithinventory.com/api/1/docs/
 
-This document can be updated by editing the corresponding Swagger Source file in the [docs](docs/) folder. Please check out it's [README](docs/README.md) for further instructions.
+This document can be updated by editing the corresponding Swagger Source file in the [docs](api-docs/) folder. Please check out it's [README](api-docs/README.md) for further instructions.
 
 ## Testing
 

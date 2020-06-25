@@ -1,10 +1,18 @@
-## Edit the API Documentation
+# Thallium Eli API Documentation
+
+[![faithinventory-com-thalliumeli badge](https://img.shields.io/badge/faithinventory.com-thalliumeli-%23b88e83?style=for-the-badge&logo=javascript)](https://faithinventory.com/)
 
 Prerequisites
 - [An AWS Account with programmatic permission](https://aws.amazon.com/)
 - [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
 
-The API is documented with Swagger, a documentation tool to help describe ThalliumEliApi.
+The API is documented with Swagger, a documentation tool to help describe the api.
+
+The docs are published at:
+
+https://faithinventory.com/api/1/docs/
+
+## Editing
 
 To edit the api documentation, run the following commands:
 
