@@ -8,9 +8,9 @@ info:
     altText: "FaithInventory Logo"
   contact:
     email: avery@faithinventory.com
-    url: "https://dev.faithinventory.com/api/1/docs/"
+    url: "https://faithinventory.com/api/1/docs/"
   description: "
-    a collection of operations that manage [dev.faithinventory.com](https://dev.faithinventory.com/) data
+    a collection of operations that manage [faithinventory.com](https://faithinventory.com/) data
 
     # Introduction
 
@@ -35,7 +35,7 @@ info:
 
     
     ```
-    curl --header\"Host: https://dev.faithinventory.com/\" --header\"x-api-key: <faithInventoryApiKey> \" --header\"Authorization: <avgaWebToken> \" --request GET --url https://dev.faithinventory.com/api/1/admin/inventory/s3/urls --verbose
+    curl --header\"Host: https://faithinventory.com/\" --header\"x-api-key: <faithInventoryApiKey> \" --header\"Authorization: <avgaWebToken> \" --request GET --url https://faithinventory.com/api/1/admin/inventory/s3/urls --verbose
     ```
 
     <security-definitions />
@@ -60,7 +60,7 @@ securityDefinitions:
     name: "Authorization"
     in: "header"
 
-host: "dev.faithinventory.com"
+host: "faithinventory.com"
 basePath: "/api/1"
 schemes:
  - https
