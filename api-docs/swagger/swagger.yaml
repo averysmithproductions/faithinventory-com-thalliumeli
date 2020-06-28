@@ -269,7 +269,7 @@ paths:
             items:
               $ref: '#/definitions/PresignedUrl'
         401:
-          description: success
+          description: unauthorized access
   /api/1/inventory/items:
     get:
       tags:

@@ -21,7 +21,7 @@ To edit the api documentation, run the following commands:
 npm install -g swagger
 
 # edit the file swagger template file
-swagger_swagger_fileName='docs/swagger/swagger.template.yaml' swagger project edit
+swagger_swagger_fileName='api-docs/swagger/swagger.template.yaml' swagger project edit
 ```
 
 When you are done editing the file, run:
