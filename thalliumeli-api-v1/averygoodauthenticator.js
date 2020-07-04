@@ -33,7 +33,7 @@ const decrypt = data => {
     if (decrypted.expiresAt) {
         const now = moment().format()
         const expiresAt = moment(decrypted.expiresAt).format()
-        result = moment(now).isBefore(expiresAt) ? decrypted.data : 'this hash has expired'
+        result = moment(now).isBefore(expiresAt) ? decrypted.data : 'this sign in key has expired'
     } else {
         result = decrypted.data
     }

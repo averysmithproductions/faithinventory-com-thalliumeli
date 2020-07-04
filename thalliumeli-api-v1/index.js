@@ -418,8 +418,8 @@ const SendAdminMagicLink = (event, callback) => {
                                 email,
                                 verificationStatus: 'unverified'
                             }
+                            response.statusCode = 204
                             response.headers['Authorization'] = JSON.stringify(encrypt(authData, hoursUntilExpiration))
-                            response.body = JSON.stringify('success')
                             callback(null, response)
                         })
                     } else {
@@ -460,6 +460,7 @@ const VerifyHash = (event, callback) => {
         console.log('C')
         const authData = decrypt(JSON.parse(event.headers['Authorization']))
         const { email, signInKey, verificationStatus } = authData
+        console.log('C1', authData)
         if (isValidEmailFormat(email)) {
             // if email exists in the admin table
                 // proceed
@@ -518,7 +519,7 @@ const VerifyHash = (event, callback) => {
                             // get subscriber
                         // else  forbid access.
                         if (signInKey === submittedKey) {
-                            console.log('J')
+                            console.log('J', verificationStatus)
                             // if request is unverified
                                 // mark as verified
                                 // reset authorization hash to expire in 7 days (168 hours)
@@ -530,12 +531,12 @@ const VerifyHash = (event, callback) => {
                                 console.log(errorMessage, response)
                                 callback(null, response)
                             } else if(verificationStatus === 'unverified') {
+                                console.log('L')
                                 const newAuthData = Object.assign({}, authData, {
                                     verificationStatus: 'verified'
                                 })
-                                response.headers['Authorization'] = JSON.stringify(encrypt(authData, 168))
+                                response.headers['Authorization'] = JSON.stringify(encrypt(newAuthData, 168))
                             }
-
                             response.body = JSON.stringify('success')
                             console.log(response)
                             callback(null, response)
@@ -560,8 +561,14 @@ const VerifyHash = (event, callback) => {
 
         } else {
             console.log('O')
-            const errorMessage = "'email' parameter is malformed."
-            response.statusCode = 400
+            let errorMessage
+            if(typeof authData === 'string') {
+                response.statusCode = 401
+                errorMessage = authData
+            } else {
+                response.statusCode = 400
+                errorMessage = "'email' parameter is malformed."
+            }
             response.body = JSON.stringify({ error: errorMessage })
             console.log(errorMessage, response)
             callback(null, response)

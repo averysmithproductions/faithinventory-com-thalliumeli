@@ -23,7 +23,7 @@ describe('ThalliumEliApi', () => {
 			}
 			const result = await axios.get(`${environmentUrl}/api/1/inventory/items`, headers)
 			if (shouldLogResponse) {
-				console.log('GET /api/1/inventory/items', result.data)
+				console.log('GET /api/1/inventory/items', result.data.length)
 			}
 
 			expect(result.status).toEqual(200)
@@ -49,7 +49,7 @@ describe('ThalliumEliApi', () => {
 			if (shouldLogResponse) {
 				console.log(`POST /api/1/inventory/admin/magic-link`, result.status)
 			}
-			expect(result.status).toEqual(200)
+			expect(result.status).toEqual(204)
 			authorizationHash = result.headers['x-amzn-remapped-authorization']
 			console.log(authorizationHash)
 			expect(result.headers.hasOwnProperty('x-amzn-remapped-authorization')).toBe(true)
@@ -70,6 +70,7 @@ describe('ThalliumEliApi', () => {
 			expect(result.status).toEqual(200)
 			expect(result.headers['x-amzn-remapped-authorization']).not.toEqual(authorizationHash)
 			authorizationHash = result.headers['x-amzn-remapped-authorization']
+			console.log(authorizationHash)
 		})
 		it('should post an inventory item', async done => {
 			const { apiKey, environmentUrl } = config
@@ -90,7 +91,7 @@ describe('ThalliumEliApi', () => {
 			}
 			let result = await axios.get(`${environmentUrl}/api/1/admin/inventory/s3/urls?amount=${photosToBeUploaded.length}`, headers)
 			if (shouldLogResponse) {
-				console.log(`GET /api/1/admin/inventory/s3/urls?amount=2`, result.data)
+				console.log(`GET /api/1/admin/inventory/s3/urls?amount=${photosToBeUploaded.length}`, result.data)
 			}
 			expect(result.status).toEqual(200)
 			expect(Array.isArray(result.data)).toBe(true)

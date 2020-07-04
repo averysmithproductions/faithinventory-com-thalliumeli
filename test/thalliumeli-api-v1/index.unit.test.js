@@ -53,9 +53,9 @@ describe('ThalliumEliApi', () => {
 		})
 	})
 	describe('CreateItem', () => {
-		it('should be called once by http method "POST", resource "/api/1/inventory/item"', () => {
+		it('should be called once by http method "POST", resource "/api/1/admin/inventory/item"', () => {
 			const event = Object.assign({}, mockedEvent, {
-				'resource': '/api/1/inventory/item',
+				'resource': '/api/1/admin/inventory/item',
 				'httpMethod': 'POST'
 			})
 			jest.spyOn(ThalliumEliApi, 'CreateItem').mockImplementationOnce( () => {} )
@@ -65,9 +65,9 @@ describe('ThalliumEliApi', () => {
 		})
 	})
 	describe('UpdateItem', () => {
-		it('should be called once by http method "PUT", resource "/api/1/inventory/items/{id}"', () => {
+		it('should be called once by http method "PUT", resource "/api/1/admin/inventory/items/{id}"', () => {
 			const event = Object.assign({}, mockedEvent, {
-				'resource': '/api/1/inventory/items/{id}',
+				'resource': '/api/1/admin/inventory/items/{id}',
 				'httpMethod': 'PUT'
 			})
 			jest.spyOn(ThalliumEliApi, 'UpdateItem').mockImplementationOnce( () => {} )
@@ -77,9 +77,9 @@ describe('ThalliumEliApi', () => {
 		})
 	})
 	describe('DeleteItem', () => {
-		it('should be called once by http method "PUT", resource "/api/1/inventory/items/{id}"', () => {
+		it('should be called once by http method "PUT", resource "/api/1/admin/inventory/items/{id}"', () => {
 			const event = Object.assign({}, mockedEvent, {
-				'resource': '/api/1/inventory/items/{id}',
+				'resource': '/api/1/admin/inventory/items/{id}',
 				'httpMethod': 'DELETE'
 			})
 			jest.spyOn(ThalliumEliApi, 'DeleteItem').mockImplementationOnce( () => {} )
@@ -132,14 +132,14 @@ describe('ThalliumEliApi', () => {
 		it('should be called once by http method "DELETE", resource "/{proxy+}"', () => {
 			const event = Object.assign({}, mockedEvent, {
 				'resource': '/{proxy+}',
-				'httpMethod': 'PUT'
+				'httpMethod': 'DELETE'
 			})
 			jest.spyOn(ThalliumEliApi, 'RequestGraphQL').mockImplementationOnce( () => {} )
 			ThalliumEliLambda.handler(event, {}, () => {})
 			expect(ThalliumEliApi.RequestGraphQL).toHaveBeenCalledTimes(1)
 			ThalliumEliApi.RequestGraphQL.mockRestore()
 		})
-		it('should be called once by http method "PUT", resource "/inventory/admin/magic-link"', () => {
+		it('should be called once by http method "POST", resource "/inventory/admin/magic-link"', () => {
 			const event = Object.assign({}, mockedEvent, {
 				'resource': '/api/1/inventory/admin/magic-link',
 				'httpMethod': 'POST'
@@ -159,9 +159,9 @@ describe('ThalliumEliApi', () => {
 			expect(ThalliumEliApi.VerifyHash).toHaveBeenCalledTimes(1)
 			ThalliumEliApi.VerifyHash.mockRestore()
 		})
-		it('should be called once by http method "GET", resource "/inventory/admin/s3/urls"', () => {
+		it('should be called once by http method "GET", resource "/admin/inventory/s3/urls"', () => {
 			const event = Object.assign({}, mockedEvent, {
-				'resource': '/api/1/inventory/admin/s3/urls',
+				'resource': '/api/1/admin/inventory/s3/urls',
 				'httpMethod': 'GET'
 			})
 			jest.spyOn(ThalliumEliApi, 'GetS3UploadUrl').mockImplementationOnce( () => {} )
@@ -169,9 +169,9 @@ describe('ThalliumEliApi', () => {
 			expect(ThalliumEliApi.GetS3UploadUrl).toHaveBeenCalledTimes(1)
 			ThalliumEliApi.GetS3UploadUrl.mockRestore()
 		})
-		it('should be called once by http method "DELETE", resource "/inventory/admin/s3/images"', () => {
+		it('should be called once by http method "DELETE", resource "/admin/inventory/s3/images"', () => {
 			const event = Object.assign({}, mockedEvent, {
-				'resource': '/api/1/inventory/admin/s3/images',
+				'resource': '/api/1/admin/inventory/s3/images',
 				'httpMethod': 'DELETE'
 			})
 			jest.spyOn(ThalliumEliApi, 'DeleteImages').mockImplementationOnce( () => {} )
@@ -179,9 +179,9 @@ describe('ThalliumEliApi', () => {
 			expect(ThalliumEliApi.DeleteImages).toHaveBeenCalledTimes(1)
 			ThalliumEliApi.DeleteImages.mockRestore()
 		})
-		it('should be called once by http method "DELETE", resource "/inventory/admin/cloudfront-cache"', () => {
+		it('should be called once by http method "DELETE", resource "/admin/cloudfront-cache"', () => {
 			const event = Object.assign({}, mockedEvent, {
-				'resource': '/api/1/inventory/admin/cloudfront-cache',
+				'resource': '/api/1/admin/cloudfront-cache',
 				'httpMethod': 'DELETE'
 			})
 			jest.spyOn(ThalliumEliApi, 'DeleteCloudFrontCache').mockImplementationOnce( () => {} )
