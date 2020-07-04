@@ -89,7 +89,7 @@ paths:
         204:
           description: success
         401:
-          description: unauthorized access
+          description: unauthorized access | this sign in key has expired
   /api/1/admin/inventory/item:
     post:
       tags:
@@ -130,7 +130,7 @@ paths:
         400:
           description: caught error
         401:
-          description: unauthorized access
+          description: unauthorized access | this sign in key has expired
   /api/1/admin/inventory/items/{id}:
     put:
       tags:
@@ -172,7 +172,7 @@ paths:
         400:
           description: caught error
         401:
-          description: unauthorized access
+          description: unauthorized access | this sign in key has expired
         404:
           description: resource not found
     delete:
@@ -203,6 +203,8 @@ paths:
           description: success but could potentially throw DynamoDB error
         204:
           description: success
+        401:
+          description: resource not found | this sign in key has expired
         404:
           description: resource not found
   /api/1/admin/inventory/s3/images:
@@ -269,7 +271,7 @@ paths:
             items:
               $ref: '#/definitions/PresignedUrl'
         401:
-          description: unauthorized access
+          description: unauthorized access | this sign in key has expired
   /api/1/inventory/items:
     get:
       tags:
@@ -318,8 +320,10 @@ paths:
         schema:
           $ref: '#/definitions/Author'
       responses:
-        200:
+        204:
           description: email sent, header Authorization cookie returned
+        400:
+          description: sign in key is malformed
         404:
           description: resource not found
   /api/1/inventory/admin/hash:
@@ -340,9 +344,9 @@ paths:
         200:
           description: success
         400:
-          description: verification status is missing
+          description: verification status is missing | 'email' parameter is malformed.
         401:
-          description: unauthorized access
+          description: unauthorized access | this sign in key has expired
         404:
           description: resource not found
 definitions:
