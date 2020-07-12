@@ -47,6 +47,10 @@ const InventoryItemType = new GraphQLObjectType({
 		moreInfoUrl: {
 			type: GraphQLString,
 			description: 'external url to learn more about the item'
+		},
+		scriptureAddress: {
+			type: GraphQLString,
+			description: 'address of scripture to contextualize inventory item'
 		}
 	})
 })
