@@ -55,17 +55,18 @@ const GetItems = async (event, callback) => {
         if (err) {
             responseBody = err
         } else {
-            responseBody = data.Items.map( ({ id, createdAt, slugId, title, summary, images, categories, price, moreInfoUrl }) => {
+            responseBody = data.Items.map( ({ categories, createdAt, id, images, moreInfoUrl, price, scriptureAddress, slugId, summary, title }) => {
                 return {
-                    id,
-                    createdAt,
-                    slugId,
-                    title,
-                    summary,
-                    images,
                     categories,
+                    createdAt,
+                    id,
+                    images,
+                    moreInfoUrl,
                     price,
-                    moreInfoUrl
+                    scriptureAddress,
+                    slugId,
+                    summary,
+                    title
                 }
             })
         }
@@ -129,6 +130,9 @@ const CreateItem = async (event, callback) => {
                             moreInfoUrl
                         },
                         TableName: INVENTORY_ITEMS_TABLE
+                    }
+                    if (eventBody.scriptureAddress) {
+                        params.Item.scriptureAddress = eventBody.scriptureAddress
                     }
                     const dynamo = new AWS.DynamoDB.DocumentClient()
                     dynamo.put(params, (err, data) => {
@@ -212,7 +216,8 @@ const UpdateItem = async (event, callback) => {
                                 images,
                                 categories,
                                 price,
-                                moreInfoUrl
+                                moreInfoUrl,
+                                scriptureAddress
                             } = decodeBase64(event.body)
                             let UpdateExpression
                             let ExpressionAttributeValues = {}
@@ -230,6 +235,7 @@ const UpdateItem = async (event, callback) => {
                             categories && preparePropToBeUpdated('categories', categories)
                             price && preparePropToBeUpdated('price', price)
                             moreInfoUrl && preparePropToBeUpdated('moreInfoUrl', moreInfoUrl)
+                            scriptureAddress && preparePropToBeUpdated('scriptureAddress', scriptureAddress)
                             console.log('E', UpdateExpression)
                             console.log('F', ExpressionAttributeValues)
                             params = {
@@ -536,6 +542,7 @@ const VerifyHash = (event, callback) => {
                                     verificationStatus: 'verified'
                                 })
                                 response.headers['Authorization'] = JSON.stringify(encrypt(newAuthData, 168))
+                                console.log('L1', decrypt(JSON.parse(response.headers['Authorization'])))
                             }
                             response.body = JSON.stringify('success')
                             console.log(response)
