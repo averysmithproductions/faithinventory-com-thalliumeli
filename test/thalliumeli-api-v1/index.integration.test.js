@@ -87,7 +87,8 @@ describe('ThalliumEliApi', () => {
 				'summary': 'With it being extremely healthy, relatively inexpensive and easily accessible, canned salmon is the best deal in town.',
 				'categories': [ 'food' ],
 				'price': 45.00,
-				'moreInfoUrl': 'https://www.wildplanetfoods.com/product/wild-sockeye-salmon/'
+				'moreInfoUrl': 'https://www.wildplanetfoods.com/product/wild-sockeye-salmon/',
+				'scriptureAddress': 'Matthew 6:2-8'
 			}
 			let result = await axios.get(`${environmentUrl}/api/1/admin/inventory/s3/urls?amount=${photosToBeUploaded.length}`, headers)
 			if (shouldLogResponse) {
@@ -201,7 +202,8 @@ describe('ThalliumEliApi', () => {
 				'summary': 'With it being extremely healthy, relatively inexpensive and easily accessible, canned salmon is the best deal in town.',
 				'categories': [ 'food' ],
 				'price': 45.00,
-				'moreInfoUrl': 'https://www.wildplanetfoods.com/product/wild-sockeye-salmon/'
+				'moreInfoUrl': 'https://www.wildplanetfoods.com/product/wild-sockeye-salmon/',
+				'scriptureAddress': 'Matthew 6:2-8'
 			}
 			let result = await axios.get(`${environmentUrl}/api/1/admin/inventory/s3/urls?amount=${photosToBeUploaded.length}`, headers)
 			if (shouldLogResponse) {
